@@ -42,11 +42,6 @@
   "provisioners": [
     {
       "type": "shell",
-      "scripts": "scripts/vmware-tools.sh",
-      "only": ["vmware"]
-    },
-    {
-      "type": "shell",
       "scripts": [
         "scripts/cleanup.sh"
       ]
