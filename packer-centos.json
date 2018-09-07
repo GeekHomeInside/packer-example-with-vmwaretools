@@ -1,0 +1,59 @@
+{
+  "variables": {
+    "build_number": "{{timestamp}}",
+    "centos_arch": "x86_64",
+    "iso_base_url": "iso",
+    "iso_checksum_type": "md5",
+    "username": "root",
+    "password": "password",
+    "disk_size": "40960",
+    "timeout": "300m",
+    "headless": "false"
+  },
+  "builders": [
+    {
+      "name": "vmware",
+      "type": "vmware-iso",
+      "format": "ova",
+      "iso_url": "{{user `iso_base_url`}}/CentOS-{{user `centos_version`}}-{{user `centos_arch`}}-{{user `iso_filename`}}.iso",
+      "iso_checksum": "{{user `iso_checksum`}}",
+      "iso_checksum_type": "{{user `iso_checksum_type`}}",
+      "ssh_username": "{{user `username`}}",
+      "ssh_password": "{{user `password`}}",
+      "ssh_wait_timeout": "{{user `timeout`}}",
+      "disk_size": "{{user `disk_size`}}",
+      "tools_upload_flavor": "linux",
+      "guest_os_type": "centos-64",
+      "headless": "{{user `headless`}}",
+      "shutdown_command": "shutdown -P now",
+      "http_directory": "http",
+      "network": "hostonly",
+      "boot_command": [
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `ks_file`}}<enter><wait>"
+      ],
+      "vmx_data": {
+        "memsize": "512",
+        "numvcpus": "1",
+        "vhv.enable": "TRUE",
+        "ethernet0.connectionType": "nat"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "scripts": "ansible/playbook.yml",
+    },
+    {
+      "type": "shell",
+      "scripts": "scripts/vmware-tools.sh",
+      "only": ["vmware"]
+    },
+    {
+      "type": "shell",
+      "scripts": [
+        "scripts/cleanup.sh"
+      ]
+    }
+  ]
+}

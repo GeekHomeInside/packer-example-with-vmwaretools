@@ -1,0 +1,8 @@
+---
+# This playbook deploys the whole security stack in this virtual machine.
+
+- name: apply common configuration to all nodes
+  hosts: all
+  become: yes
+  roles:
+    - security

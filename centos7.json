@@ -1,0 +1,6 @@
+{
+  "centos_version": "7",
+  "ks_file": "centos7.cfg",
+  "iso_filename": "Minimal-1804",
+  "iso_checksum": "fabdc67ff3a1674a489953effa285dfd"
+}

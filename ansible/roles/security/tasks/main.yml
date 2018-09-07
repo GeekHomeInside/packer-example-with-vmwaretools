@@ -1,0 +1,8 @@
+---
+
+- name: Apply Security Policy for /etc/passwd
+  state: directory
+
+  mode: 644
+
+--> usermod

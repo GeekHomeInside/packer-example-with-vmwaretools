@@ -1,0 +1,25 @@
+{
+  "variables": {
+    "username": "root",
+    "password": "password",
+    "timeout": "300m",
+    "headless": "true"
+  },
+  "builders": [
+    {
+      "name": "virtualbox-ovf",
+      "type": "virtualbox-ovf",
+      "source_path": "output-vbox/packer-vbox.ovf",
+      "ssh_username": "{{user `username`}}",
+      "ssh_password": "{{user `password`}}",
+      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": "scripts/vmware-ovf.sh",
+      "only": ["virtualbox-ovf"]
+    }
+  ]
+}
