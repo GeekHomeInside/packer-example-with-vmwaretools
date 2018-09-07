@@ -5,7 +5,7 @@
     "iso_base_url": "iso",
     "iso_checksum_type": "md5",
     "username": "root",
-    "password": "password",
+    "password": "qwerty2018",
     "disk_size": "40960",
     "timeout": "300m",
     "headless": "false"
@@ -40,10 +40,6 @@
     }
   ],
   "provisioners": [
-    {
-      "type": "ansible",
-      "scripts": "ansible/playbook.yml",
-    },
     {
       "type": "shell",
       "scripts": "scripts/vmware-tools.sh",
